@@ -2,6 +2,7 @@
 // Created by horatiu on 11/7/23.
 //
 #include <stdio.h>
+#include <string.h>
 #include "crud.h"
 #include "../Validator/validator.h"
 
@@ -25,4 +26,18 @@ int lengthTransactions(struct transaction * transactions){
         i++;
     }
     return i;
+}
+
+
+int checkAccoundBalance(struct transaction * transactions){
+    int len = lengthTransactions(transactions);
+    int sum = 0;
+    for(int i = 0; i < len; i++){
+        if(strcmp(get_type(&transactions[i]), "INCOME") == 0){
+            sum += get_sum(&transactions[i]);
+        }else{
+            sum -= get_sum(&transactions[i]);
+        }
+    }
+    return sum;
 }

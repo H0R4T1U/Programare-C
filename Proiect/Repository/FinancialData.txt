@@ -1,0 +1,9 @@
+1 01 01 2021 1000 income Salariu
+2 02 01 2021 100 expense Cumparaturi
+3 03 01 2021 250 expense Chirie
+4 04 01 2021 120 income actiuni
+5 05 01 2021 123 expense Cumparaturi
+6 01 02 2021 1000 income Salariu
+7 02 02 2021 250 expense Cumparaturi
+8 03 02 2021 50 income actiuni
+9 04 02 2021 350 expense Haine

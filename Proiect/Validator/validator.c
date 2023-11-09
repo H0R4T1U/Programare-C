@@ -3,7 +3,9 @@
 //
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "validator.h"
+
 
 
 int validator(struct transaction t){
@@ -28,7 +30,7 @@ int validator(struct transaction t){
         printf("Invalid amount!\n");
         return 0;
     }
-    if(strcmp(get_type(&t), "income") != 0 && strcmp(get_type(&t),"expense") != 0){
+    if(strcmp(get_type(&t), "INCOME") != 0 && strcmp(get_type(&t),"EXPENSE") != 0){
 
         printf("Invalid type!\n");
         return 0;

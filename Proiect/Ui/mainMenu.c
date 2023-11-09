@@ -3,15 +3,20 @@
 //
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 #include "mainMenu.h"
-
+#include "../Views/transactionsView.h"
+void stringToUpper(char* str);
 
 void printMainMenu(){
-    printf("1. Add transaction\n");
-    printf("2. Print transactions\n");
+    printf("1. Add Transaction\n");
+    printf("2. Transactions History\n");
+    printf("3. Check Account Balance\n");
+    printf("S. Save to FILE\n");
     printf("q. Exit\n");
 }
+
 
 void addTransactionMenu(struct transaction * transactions) {
     // read id, day, month, year, sum, type, description
@@ -40,6 +45,8 @@ void addTransactionMenu(struct transaction * transactions) {
     printf("Enter description: ");
     fgets(description, 100, stdin);
 
+    stringToUpper(type);
+    stringToUpper(description);
     if(addTransaction(transactions, day, month, year, sum, type, description)){
         printf("Transaction added successfully\n");
     }else{
@@ -47,21 +54,8 @@ void addTransactionMenu(struct transaction * transactions) {
     }
 }
 
-void printTransactions(struct transaction transactions[]) {
-    // print all transactions
-    int len = lengthTransactions(transactions);
-    for(int i = 0; i < len; i++) {
-        struct transaction t = transactions[i];
-        printf("ID:%d\n", get_id(&t));
-        printf("Data: %d %d %d\n", get_day(&t), get_month(&t),get_year(&t));
-        printf("Amount: %d\n", get_sum(&t));
-        printf("Type: %s\n", get_type(&t));
-        printf("Descriere: %s\n", get_description(&t));
-    }
 
-}
-
-    void mainMenu(struct transaction * transactions) {
+void mainMenu(struct transaction * transactions) {
         // menu for adding transactions
         //  print transactions
         //  exit
@@ -75,6 +69,11 @@ void printTransactions(struct transaction transactions[]) {
         }
         else if(option == '2') {
             printTransactions(transactions);
+            printMainMenu();
+        }else if(option == '3'){
+            int balance = checkAccoundBalance(transactions);
+            printAccountBalance(balance);
+            printMainMenu();
         }else if (option == 'q') {
             break;
         }
@@ -82,3 +81,9 @@ void printTransactions(struct transaction transactions[]) {
     }
 }
 
+
+void stringToUpper(char* str){
+    for(int i = 0; i < strlen(str); i++){
+        str[i] = toupper(str[i]);
+    }
+}

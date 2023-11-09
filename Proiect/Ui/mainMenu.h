@@ -10,8 +10,7 @@
 
 void mainMenu(struct transaction  * transactions);
 void addTransactionMenu(struct transaction * transactions);
-
+void stringToUpper(char* str);
 void printMainMenu();
-void printTransactions(struct transaction * transactions);
 
 #endif //PROIECT_MAINMENU_H
