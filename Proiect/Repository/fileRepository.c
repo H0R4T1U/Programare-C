@@ -7,7 +7,7 @@
 #include "../Ui/mainMenu.h"
 #include <stdio.h>
 
-void loadfile(char* filename, struct transaction * transactions){
+void loadFile(char* filename, struct transaction * transactions){
     FILE * fptr;
     int i = 0;
     char type[10];
@@ -32,4 +32,21 @@ void loadfile(char* filename, struct transaction * transactions){
     }
     fclose(fptr);
 
+}
+
+
+void saveFile(int len, struct transaction * transactions){
+    FILE * fptr;
+    fptr = fopen("./Repository/FinancialData.txt", "w");
+    for(int i = 0; i < len; i++){
+
+        fprintf(fptr,"%d ",get_id(&transactions[i]));
+        fprintf(fptr,"%d ",get_day(&transactions[i]));
+        fprintf(fptr,"%d ",get_month(&transactions[i]));
+        fprintf(fptr,"%d ",get_year(&transactions[i]));
+        fprintf(fptr,"%d ",get_sum(&transactions[i]));
+        fprintf(fptr,"%s ",get_type(&transactions[i]));
+        fprintf(fptr,"%s\n",get_description(&transactions[i]));
+    }
+    fclose(fptr);
 }

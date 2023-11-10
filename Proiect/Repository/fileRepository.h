@@ -6,6 +6,6 @@
 #define PROIECT_FILEREPOSITORY_H
 #include "./transaction.h"
 
-void loadfile(char* filename, struct transaction * transactions);
-void savefile(char* filename, struct transaction * transactions, int length);
+void loadFile(char* filename, struct transaction * transactions);
+void saveFile(int len, struct transaction * transactions);
 #endif //PROIECT_FILEREPOSITORY_H

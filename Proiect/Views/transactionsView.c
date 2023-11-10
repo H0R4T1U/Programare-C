@@ -8,7 +8,7 @@
 
 
 void printTransactions(struct transaction* transactions) {
-    printf("%-18s%-25s%-17s%-20s%-10s\n", "ID", "DATE","AMOUNT", "TYPE", "Description");
+    printf("\n%-18s%-25s%-17s%-20s%-10s\n", "ID", "DATE","AMOUNT", "TYPE", "Description");
     printf("\n");
 
     int len = lengthTransactions(transactions);

@@ -4,15 +4,19 @@
 
 #include <stdio.h>
 #include <ctype.h>
-#include <string.h>
 #include "mainMenu.h"
 #include "../Views/transactionsView.h"
-void stringToUpper(char* str);
+#include "../Repository/fileRepository.h"
+#include "../Services/Reports.h"
+#include "../Utility/Utility.h"
 
+
+void financialReportMenu(struct transaction * transactions);
 void printMainMenu(){
     printf("1. Add Transaction\n");
     printf("2. Transactions History\n");
     printf("3. Check Account Balance\n");
+    printf("R. Financial Report\n");
     printf("S. Save to FILE\n");
     printf("q. Exit\n");
 }
@@ -60,7 +64,8 @@ void mainMenu(struct transaction * transactions) {
         //  print transactions
         //  exit
     printMainMenu();
-    int option = getchar();
+    char option = tolower(getchar());
+
     while (1) {
 
         if(option == '1') {
@@ -74,16 +79,37 @@ void mainMenu(struct transaction * transactions) {
             int balance = checkAccoundBalance(transactions);
             printAccountBalance(balance);
             printMainMenu();
+        }else if(option == 'r'){
+            financialReportMenu(transactions);
+            printMainMenu();
+        }else if (option == 's') {
+            saveFile(lengthTransactions(transactions), transactions);
+            printMainMenu();
+
         }else if (option == 'q') {
             break;
         }
-        option = getchar();
+        option = tolower(getchar());
     }
 }
 
 
-void stringToUpper(char* str){
-    for(int i = 0; i < strlen(str); i++){
-        str[i] = toupper(str[i]);
-    }
+
+
+void financialReportMenu(struct transaction * transactions) {
+    int dayL, monthL, yearL, dayR, monthR, yearR;
+    printf("Enter start day: ");
+    scanf("%d", &dayL);
+    printf("Enter Start Month : ");
+    scanf("%d", &monthL);
+    printf("Enter Start Year : ");
+    scanf("%d", &yearL);
+    printf("Enter End Day: ");
+    scanf("%d", &dayR);
+    printf("Enter End Month : ");
+    scanf("%d", &monthR);
+    printf("Enter End Year : ");
+    scanf("%d", &yearR);
+    financialReport(transactions, dayL, monthL, yearL, dayR, monthR, yearR);
+
 }
