@@ -1,5 +1,5 @@
 //
-// Created by mepho on 11/10/23.
+// Created by horatiu on 11/10/23.
 //
 
 #ifndef PROIECT_UTILITY_H

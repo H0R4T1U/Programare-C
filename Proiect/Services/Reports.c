@@ -1,5 +1,5 @@
 //
-// Created by mepho on 11/10/23.
+// Created by horatiu on 11/10/23.
 //
 
 #include "Reports.h"
@@ -7,6 +7,16 @@
 #include "../Views/transactionsView.h"
 
 void financialReport(struct transaction * transactions,int dayL,int monthL,int yearL,int dayR,int monthR,int yearR){
+    /*
+     * Prints all the transactions between two dates
+     * Input: transactions - pointer to a list of transactions
+     *     dayL - the left day
+     *     monthL - the left month
+     *     yearL - the left year
+     *     dayR - the right day
+     *     monthR - the right month
+     *     yearR - the right year
+     */
     int n = lengthTransactions(transactions);
     struct transaction  new_transactions[100];
     int j = 0;

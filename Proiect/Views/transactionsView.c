@@ -1,5 +1,5 @@
 //
-// Created by mepho on 11/9/23.
+// Created by horatiu on 11/9/23.
 //
 
 #include "transactionsView.h"
@@ -8,7 +8,9 @@
 
 
 void printTransactions(struct transaction* transactions) {
-    printf("\n%-18s%-25s%-17s%-20s%-10s\n", "ID", "DATE","AMOUNT", "TYPE", "Description");
+    //Prints all transactions
+
+    printf("\n%-18s%-25s%-17s%-20s%-8s\n", "ID", "DATE","AMOUNT", "TYPE", "Description");
     printf("\n");
 
     int len = lengthTransactions(transactions);
@@ -21,10 +23,10 @@ void printTransactions(struct transaction* transactions) {
         int suma = get_sum(&t);
         char* type = get_type(&t);
         char* Description = get_description(&t);
-        char d[3] = {'0'+ (day/10),'0'+(day%10),'\0'}; // convertim in format 03 zilele mai mici ca 10
-        char m[3] = {'0'+ (month/10),'0'+month%10,'\0'};
+        char d[3] = {'0'+ (day/10),'0'+(day%10),'\0'}; // converts in format 03 for days smaller than 10
+        char m[3] = {'0'+ (month/10),'0'+month%10,'\0'}; // Converts in format 03 for months smaller than 10
 
-        printf("%-15d%-3s%-3s%-22d%-5d%-12s%-19s%-10s\n", id,d,m,year,suma," $",type, Description);
+        printf("%-15d%-3s%-3s%-22d%-5d%-12s%-18s%-6s\n", id,d,m,year,suma," $",type, Description);
 
 
     }
@@ -36,6 +38,7 @@ void printTransactions(struct transaction* transactions) {
 }
 
 void printAccountBalance(int sum){
+    //Prints the account balance
     printf("###### BALANCE ######\n");
     printf("Your account balance is: %d $\n", sum);
     printf("#####################\n");

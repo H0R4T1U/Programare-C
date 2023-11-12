@@ -1,12 +1,8 @@
 //
-// Created by mepho on 11/10/23.
+// Created by horatiu on 11/10/23.
 //
 
 #include "testService.h"
-
-//
-// Created by mepho on 11/10/23.
-//
 
 
 #include <string.h>

@@ -36,6 +36,11 @@ int validator(struct transaction t){
 
 
 int validateDate(int day, int month, int year) {
+    /*
+     * Checks if a date is valid
+     * Input: day, month, year
+     * Output: 1 if the date is valid, 0 otherwise
+     */
     if (year < 1990) {
         printf("Invalid Year!\n");
 
@@ -73,6 +78,11 @@ int validateDate(int day, int month, int year) {
 
 
 int validateDateInterval(int dayL, int monthL, int yearL, int dayR, int monthR, int yearR){
+    /*
+     * Checks if a date interval is valid
+     * Input: dayL, monthL, yearL, dayR, monthR, yearR
+     * Output: 1 if the date interval is valid, 0 otherwise
+     */
     if(validateDate(dayL,monthL,yearL) == 0){
         printf("Invalid Start date!\n");
         return 0;

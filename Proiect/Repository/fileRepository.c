@@ -1,5 +1,5 @@
 //
-// Created by mepho on 11/10/23.
+// Created by horatiu on 11/10/23.
 //
 
 #include "fileRepository.h"
@@ -8,6 +8,11 @@
 #include <stdio.h>
 
 void loadFile(char* filename, struct transaction * transactions){
+    /*
+     * This function loads the data from the file into the transactions array
+     * Input: filename - the name of the file
+     *       transactions - the array of transactions
+     */
     FILE * fptr;
     int i = 0;
     char type[10];
@@ -36,6 +41,11 @@ void loadFile(char* filename, struct transaction * transactions){
 
 
 void saveFile(int len, struct transaction * transactions){
+    /*
+     * This function saves the data from the transactions array into the file
+     * Input: len - the length of the transactions array
+     *      transactions - the array of transactions
+     */
     FILE * fptr;
     fptr = fopen("./Repository/FinancialData.txt", "w");
     for(int i = 0; i < len; i++){

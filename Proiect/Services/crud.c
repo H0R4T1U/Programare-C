@@ -7,6 +7,16 @@
 #include "../Validator/validator.h"
 
 int addTransaction(struct transaction * transactions, int day, int month, int year, int sum, char * type, char * description) {
+    /*
+     * This function adds a transaction to the transactions array
+     * Input: transactions - the array of transactions
+     *      day - the day of the transaction
+     *      month - the month of the transaction
+     *      year - the year of the transaction
+     *      sum - the sum of the transaction
+     *      type - the type of the transaction
+     *      description - the description of the transaction
+     */
     int len = lengthTransactions(transactions);
     int id = len+1;
 
@@ -21,6 +31,11 @@ int addTransaction(struct transaction * transactions, int day, int month, int ye
 }
 
 int lengthTransactions(struct transaction * transactions){
+    /*
+     * This function returns the length of the transactions array
+     * Input: transactions - the array of transactions
+     * Output: i - the length of the transactions array
+     */
     int i = 0;
     while(transactions[i].id != 0){
         i++;
@@ -30,6 +45,11 @@ int lengthTransactions(struct transaction * transactions){
 
 
 int checkAccoundBalance(struct transaction * transactions){
+    /*
+     * This function returns the account balance
+     * Input: transactions - the array of transactions
+     * Output: sum - the account balance
+     */
     int len = lengthTransactions(transactions);
     int sum = 0;
     for(int i = 0; i < len; i++){

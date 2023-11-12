@@ -30,6 +30,7 @@ void addTransactionMenu(struct transaction * transactions) {
     int day, month, year, sum;
     char type[10];
     char description[100];
+
     printf("Enter day: ");
     scanf("%d", &day);
 
@@ -45,6 +46,8 @@ void addTransactionMenu(struct transaction * transactions) {
 
     printf("Enter type: ");
     scanf("%s" , type);
+
+    getchar();
 
     printf("Enter description: ");
     fgets(description, 100, stdin);
@@ -97,6 +100,8 @@ void mainMenu(struct transaction * transactions) {
 
 
 void financialReportMenu(struct transaction * transactions) {
+    // read start day, start month, start year, end day, end month, end year
+    // call financialReport
     int dayL, monthL, yearL, dayR, monthR, yearR;
     printf("Enter start day: ");
     scanf("%d", &dayL);
