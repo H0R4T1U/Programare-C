@@ -4,7 +4,7 @@
 
 #include "fileRepository.h"
 #include "../Validator/validator.h"
-#include "../Ui/mainMenu.h"
+#include "../Utility/Utility.h"
 #include <stdio.h>
 
 void loadFile(char* filename, struct transaction * transactions){
@@ -16,6 +16,7 @@ void loadFile(char* filename, struct transaction * transactions){
     FILE * fptr;
     int i = 0;
     char type[10];
+    char* c;
     char description[100];
     int id = 0, day = 0,month=0,year = 0,sum = 0;
     fptr = fopen("./Repository/FinancialData.txt", "r");
@@ -24,7 +25,7 @@ void loadFile(char* filename, struct transaction * transactions){
         fscanf(fptr,"%d",&month);
         fscanf(fptr,"%d",&year);
         fscanf(fptr,"%d",&sum);
-        fscanf(fptr,"%s",type);
+        fscanf(fptr,"%s ",type);
         fgets(description,100,fptr);
 
         stringToUpper(type);

@@ -9,7 +9,7 @@ int main() {
     testAll();
     struct transaction transactions[100];
     for(int i= 0 ; i < 100; i++){
-        struct transaction a = {0,25,0,0,0,"",""};
+        struct transaction a = {0,0,0,0,0,"",""};
         transactions[i] = a  ;
     }
 
