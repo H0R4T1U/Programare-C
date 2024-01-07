@@ -1,0 +1,13 @@
+//
+// Created by h on 1/7/24.
+//
+
+#ifndef DYNAMIC_ALLOCATIO_H
+#define DYNAMIC_ALLOCATIO_H
+#include "../Repository/transaction.h"
+#include "../Repository/accounts.h"
+struct transaction* allocateTransaction();
+struct transaction* reallocTransaction(struct transaction* t, int* n);
+struct account* allocateAccount();
+struct account*  reallocAccount(struct account* a,int* n);
+#endif //DYNAMIC_ALLOCATIO_H
