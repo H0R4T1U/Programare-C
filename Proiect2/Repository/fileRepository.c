@@ -73,16 +73,23 @@ void createCSV(struct account * a,int len)
 {
     // file pointer
     FILE* fptr = NULL;
+    char* name[20],passwd[15],type[10];
+
 
     // opens an existing csv file or creates a new file.
     fptr = fopen("../Data/Accounts.csv", "w");
     fprintf(fptr,"Id,Balance,Type,Name,Password\n");
     for(int i = 0; i < len; i++) {
+        strcpy(type,get_type_account(&a[i]));
+        strcpy(passwd,get_password(&a[i]));
+        strcpy(name,get_name(&a[i]));
+        encrypt(type,13);
+        encrypt(name,13);
         fprintf(fptr,"%d,",get_id_account(&a[i]));
         fprintf(fptr,"%d,",get_balance(&a[i]));
-        fprintf(fptr,"%s,",get_type_account(&a[i]));
-        fprintf(fptr,"%s,",get_name(&a[i]));
-        fprintf(fptr,"%s",get_password(&a[i]));
+        fprintf(fptr,"%s,",type);
+        fprintf(fptr,"%s,",name);
+        fprintf(fptr,"%s",passwd);
         fprintf(fptr,"\n");
     }
 
@@ -115,6 +122,10 @@ int loadCSV(struct account** a) {
         strcpy(name,token);
         token = strtok(NULL, "\n");
         strcpy(passwd,token);
+
+        decrypt(type,13);
+        decrypt(name,13);
+
         printf("%d,%d,%s,%s,%s\n",id,amount,type,name,passwd);
         struct account account = createAccount(id,amount,type,name,passwd);
         (*a)[len-1] = account;

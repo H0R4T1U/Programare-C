@@ -7,7 +7,7 @@
 
 #include "../Repository/accounts.h"
 #include "../Utility/dynamic_allocation.h"
-
+#include "../Utility/encryption.h"
     int login(struct account* accounts,int len_accounts);
     void sign_up(struct account* accounts, int len_accounts);
 #endif //LOGIN_H

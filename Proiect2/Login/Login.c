@@ -44,7 +44,7 @@ void sign_up(struct account* accounts, int len_accounts) {
     }
     printf("Password:");
     scanf("%15s",passwd);
-
+    encrypt(passwd,13);
     printf("Account type(credit,debit):");
     scanf("%10s",type);
 
@@ -62,6 +62,7 @@ int check_name(char* nume,struct account* accounts,int len_accounts) {
 }
 
 int check_login(char* nume,char* passwd,struct account* accounts,int len_accounts) {
+    encrypt(passwd,13);
     for(int i = 0; i < len_accounts-1; i++) {
         if( strcmp( get_name(&accounts[i]),nume ) == 0) {
             if(strcmp(get_password(&accounts[i]),passwd) == 0) {

@@ -6,8 +6,9 @@
 #define PROIECT_FILEREPOSITORY_H
 #include "./transaction.h"
 #include "./accounts.h"
+#include "../Utility/encryption.h"
 void loadFile(char* filename, struct transaction * transactions);
 void saveFile(int len, struct transaction * transactions);
-void createCSV(struct account * a,int id);
+void createCSV(struct account * a,int len);
 int loadCSV(struct account** a);
 #endif //PROIECT_FILEREPOSITORY_H

@@ -6,6 +6,7 @@
 #include "./Tests/testService.h"
 #include "Login/Login.h"
 #include "Utility/dynamic_allocation.h"
+#include "Utility/encryption.h"
 
 int main() {
     //testAll();
@@ -13,8 +14,9 @@ int main() {
     int len_accounts = 1;
     struct transaction* transactions = allocateTransaction();
     struct account* accounts = allocateAccount();
-    len_accounts = loadCSV(&accounts);
-    //sign_up(accounts,len_accounts);
+    sign_up(accounts,len_accounts);
+    len_accounts = reallocAccount(&accounts,len_accounts);
+    createCSV(accounts,len_accounts);
     int session = login(accounts,len_accounts);
 
     //loadFile("FinancialData.txt", transactions);
