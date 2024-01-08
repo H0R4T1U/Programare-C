@@ -49,7 +49,7 @@ void sign_up(struct account* accounts, int len_accounts) {
     scanf("%10s",type);
 
 
-    accounts[len_accounts-1] = createAccount(len_accounts,type,nume,passwd);
+    accounts[len_accounts-1] = createAccount(len_accounts,0,type,nume,passwd);
 }
 
 int check_name(char* nume,struct account* accounts,int len_accounts) {
@@ -62,7 +62,7 @@ int check_name(char* nume,struct account* accounts,int len_accounts) {
 }
 
 int check_login(char* nume,char* passwd,struct account* accounts,int len_accounts) {
-    for(int i = 0; i < len_accounts; i++) {
+    for(int i = 0; i < len_accounts-1; i++) {
         if( strcmp( get_name(&accounts[i]),nume ) == 0) {
             if(strcmp(get_password(&accounts[i]),passwd) == 0) {
                 return get_id_account(&accounts[i]);

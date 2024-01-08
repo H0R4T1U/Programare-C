@@ -24,5 +24,5 @@ void set_type_account(struct account  *a, char * type);
 void set_name(struct account  *a, char *  name);
 void set_password(struct account  *a, char * password);
 
-struct account createAccount(int id, char* type, char* name,char* password);
+struct account createAccount(int id,int balance, char* type, char* name,char* password);
 #endif //ACCOUNTS_H

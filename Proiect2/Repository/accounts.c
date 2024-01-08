@@ -80,7 +80,7 @@ void set_password(struct account* a, char* password) {
      */
     strncpy(a->password,password,15);
 }
-struct account createAccount(int id, char* type, char* name,char* password){
+struct account createAccount(int id,int balance,char* type, char* name,char* password){
     /*
      * Creates a account
      * Input: id - the id of the account
@@ -94,7 +94,7 @@ struct account createAccount(int id, char* type, char* name,char* password){
      */
     struct account a;
     a.id = id;
-    set_balance(&a,0);
+    set_balance(&a,balance);
     set_type_account(&a, type);
     set_name(&a, name);
     set_password(&a, password);

@@ -9,5 +9,5 @@
 struct transaction* allocateTransaction();
 struct transaction* reallocTransaction(struct transaction* t, int* n);
 struct account* allocateAccount();
-struct account*  reallocAccount(struct account* a,int* n);
+int  reallocAccount(struct account** a,int n);
 #endif //DYNAMIC_ALLOCATIO_H

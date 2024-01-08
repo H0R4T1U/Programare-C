@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 struct account* allocateAccount() {
-    struct account* a =  (struct account*)malloc(sizeof(struct account));
+    struct account* a =  (struct account*)malloc(1*sizeof(struct account));
     return a;
 
 }
@@ -17,15 +17,15 @@ struct transaction* allocateTransaction() {
     return (struct transaction*)malloc(sizeof(struct transaction));
 }
 
-struct account* reallocAccount(struct account* a,int* n) {
-    (*n)++;
-    struct account* tmp = realloc(a,(*n)*sizeof(struct account));
-    if(tmp == NULL) {
-        printf("Can't allocate more memory!");
-        return NULL;
-
+int reallocAccount(struct account** a,int n) {
+    n++;
+    *a = (struct account*)realloc(*a,n*sizeof(struct account));
+    if(*a == NULL) {
+        fprintf(stderr,"Can't allocate more memory!");
+        return 0;
     }else {
-        return tmp;
+
+        return n;
     }
 
 }

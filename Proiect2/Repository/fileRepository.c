@@ -6,9 +6,11 @@
 #include "../Validator/validator.h"
 #include "../Utility/Utility.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "accounts.h"
+#include "../Utility/dynamic_allocation.h"
 
 void loadFile(char* filename, struct transaction * transactions){
     /*
@@ -67,26 +69,57 @@ void saveFile(int len, struct transaction * transactions){
 
 
 
-void create_csv(struct account * a,int id)
+void createCSV(struct account * a,int len)
 {
     // file pointer
     FILE* fptr = NULL;
 
     // opens an existing csv file or creates a new file.
-    int i = 0;
-    while(get_id_account(&a[i]) != id) {
-        i++;
+    fptr = fopen("../Data/Accounts.csv", "w");
+    fprintf(fptr,"Id,Balance,Type,Name,Password\n");
+    for(int i = 0; i < len; i++) {
+        fprintf(fptr,"%d,",get_id_account(&a[i]));
+        fprintf(fptr,"%d,",get_balance(&a[i]));
+        fprintf(fptr,"%s,",get_type_account(&a[i]));
+        fprintf(fptr,"%s,",get_name(&a[i]));
+        fprintf(fptr,"%s",get_password(&a[i]));
+        fprintf(fptr,"\n");
     }
-    char file[50] = {0};
-    strcpy(file,"../Data/");
-    strcat(file,get_name(&a[i]));
-    strcat(file,".csv");
-    fptr = fopen(file, "w");
-    fprintf(fptr,"%d,",get_id_account(&a[i]));
-    fprintf(fptr,"%d,",get_balance(&a[i]));
-    fprintf(fptr,"%10s,",get_type_account(&a[i]));
-    fprintf(fptr,"%20s,",get_name(&a[i]));
-    fprintf(fptr,"%15s,",get_password(&a[i]));
+
 
     fclose(fptr);
+}
+
+int loadCSV(struct account** a) {
+    FILE* fptr = NULL;
+    char line[1000];
+    int len = 1;
+    fptr = fopen("../Data/Accounts.csv","r");
+    if(fptr == NULL) {
+        fprintf(stderr,"FIle I/O Error");
+    }
+    fgets(line, 1000, fptr);
+    while (feof(fptr) != 1)
+    {
+        char type[10],name[20],passwd[15];
+
+        fgets(line, 1000, fptr);
+
+        char* token = strtok(line, ",");
+        int id = atoi(token);
+        token = strtok(NULL, ",");
+        int amount = atoi(token);
+        token = strtok(NULL, ",");
+        strcpy(type,token);
+        token = strtok(NULL, ",");
+        strcpy(name,token);
+        token = strtok(NULL, "\n");
+        strcpy(passwd,token);
+        printf("%d,%d,%s,%s,%s\n",id,amount,type,name,passwd);
+        struct account account = createAccount(id,amount,type,name,passwd);
+        (*a)[len-1] = account;
+        len = reallocAccount(a,len);
+
+    }
+    return len;
 }

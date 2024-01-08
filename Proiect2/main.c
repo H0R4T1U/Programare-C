@@ -13,10 +13,10 @@ int main() {
     int len_accounts = 1;
     struct transaction* transactions = allocateTransaction();
     struct account* accounts = allocateAccount();
-    sign_up(accounts,len_accounts);
-    int id = login(accounts,len_accounts);
-    printf("%d",id);
-    create_csv(accounts,id);
+    len_accounts = loadCSV(&accounts);
+    //sign_up(accounts,len_accounts);
+    int session = login(accounts,len_accounts);
+
     //loadFile("FinancialData.txt", transactions);
     //mainMenu(transactions);
     free(transactions);

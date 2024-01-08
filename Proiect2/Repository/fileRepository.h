@@ -8,5 +8,6 @@
 #include "./accounts.h"
 void loadFile(char* filename, struct transaction * transactions);
 void saveFile(int len, struct transaction * transactions);
-void create_csv(struct account * a,int id);
+void createCSV(struct account * a,int id);
+int loadCSV(struct account** a);
 #endif //PROIECT_FILEREPOSITORY_H
