@@ -140,6 +140,10 @@ int validate_transfer(struct account* accounts, int len_accounts,struct transact
     }
     int id = get_account(&t);
     int index = get_loc_by_id(accounts,len_accounts,id);
+    if(index == -1) {
+        printf("\033[1;31mAccount doesn't Exist!\033[1;0m\n");
+        return 0;
+    }
     if(strcmp(get_type(&t),"EXPENSE") == 0 && strcmp(get_type_account(&accounts[index]),"DEBIT") == 0) {
         if(get_balance(&accounts[index]) < get_sum(&t)) {
             printf("\033[1;31mInsuficient Funds!\033[1;0m\n");

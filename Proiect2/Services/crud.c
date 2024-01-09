@@ -74,9 +74,11 @@ int addTransfer(struct transaction ** transactions,int id_account, int day, int 
     struct transaction t = createTransaction(id,id_account, day, month, year, sum, type, description);
 
     if(validate_transfer(*accounts,len_account,t)){
-        (*transactions)[*(len) - 1] = t;
-        *len = reallocTransaction(transactions,*len);
+        int length = *len;
+        (*transactions)[length - 1] = t;
+        reallocTransaction(transactions,*len);
         save_transaction_csv(*transactions,*len);
+        *len = length + 1;
         return 1;
 
     }

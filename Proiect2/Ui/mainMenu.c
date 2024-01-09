@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include "mainMenu.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 #include "../Login/Login.h"
@@ -14,7 +15,12 @@
 #include "../Services/Reports.h"
 #include "../Utility/Utility.h"
 
-
+void print_login_menu() {
+    printf("\033[1;36m################# LOGIN MENU #################\033[1;0m\n");
+    printf("1:Log-In\n");
+    printf("2:Sign-up\n");
+    printf("Q:Exit\n:");
+}
 void printMainMenu(){
     printf("\033[1;36m################# MAIN MENU #################\033[1;0m\n");
     printf("1. Add Transaction\n");
@@ -22,28 +28,36 @@ void printMainMenu(){
     printf("3. Check Account Balance\n");
     printf("4. Resolve Pending Requests\n");
     printf("R. Financial Report\n");
-    printf("S. Export To CSV\n");
+    printf("S. Export To File\n");
     printf("q. Exit\n");
     printf("x. Log-Out\n");
 }
 void printAddTransactionMenu() {
+    printf("\033[1;36m################# Transaction MENU #################\033[1;0m\n");
     printf("1. Deposit/Withdrawal Money\n");
     printf("2. Transfer/Request Money\n");
     printf("Q. Back\n");
 }
-
+void transferTransactionMenu() {
+    printf("1. Transfer Money\n");
+    printf("2. Request Money\n");
+    printf("q. Back\n:");
+}
 
 void addTransactionMenu(struct account** accounts, int len_accounts, struct transaction  ** transactions,int* len_transactions,int session) {
     // read id, day, month, year, sum, type, description
     // call addTransaction
     // print success or error
+    printAddTransactionMenu();
     while(1) {
-        printAddTransactionMenu();
+
         char option = tolower(getchar());
         if(option == '1') {
             intraTransactionUi(transactions,len_transactions,session);
+            printAddTransactionMenu();
         }else if(option == '2') {
-             transferTransactionUI(accounts,len_accounts,transactions,len_transactions,session);
+            transferTransactionUI(accounts,len_accounts,transactions,len_transactions,session);
+            printAddTransactionMenu();
         }else if(option == 'q') {
             break;
         }
@@ -81,7 +95,7 @@ void intraTransactionUi(struct transaction  ** transactions,int* len_transaction
     if(addTransaction(transactions,session, day, month, year, sum, type, description,*len_transactions)){
         printf("Transaction added successfully\n");
         save_transaction_csv(*transactions,*len_transactions);
-        *len_transactions++;
+        *(len_transactions) = *(len_transactions) + 1;
     }else{
         printf("Transaction could not be added\n");
     }
@@ -104,6 +118,7 @@ void mainMenu(struct account** accounts, int len_accounts, struct transaction **
 
     while (session != 0) {
         char option = tolower(getchar());
+
         if(option == '1') {
             addTransactionMenu(accounts,len_accounts,transactions,&len_transactions,session);
             printMainMenu();
@@ -177,11 +192,10 @@ void login_menu(struct account** accounts, int* len_accounts, int* session) {
     /* Login Menu
      * manages login/sign-up systems
      */
+    char option = 0;
+    print_login_menu();
     while((*session) == 0 ) {
-        printf("\033[1;36m################# LOGIN MENU #################\033[1;0m\n");
-        printf("1:Log-In\n");
-        printf("2:Sign-up\n");
-        printf("Q:Exit\n:");
+
         char option = tolower(getchar());
 
         if(option == '1') {
@@ -190,20 +204,23 @@ void login_menu(struct account** accounts, int* len_accounts, int* session) {
             if(sign_up(accounts,*len_accounts)) {
                 save_account_csv(*accounts,*len_accounts);
                 *(len_accounts) = 1+ (*len_accounts);
+
             }
+            print_login_menu();
         }else if(option == 'q') {
-             break;
+            exit(0);
         }
+
     }
 }
+
 
 void transferTransactionUI(struct account** accounts, int len_accounts, struct transaction  ** transactions,int *len_transactions,int session) {
     /* Transfer money between two accounts
     */
+    transferTransactionMenu();
     while(1) {
-        printf("1. Transfer Money\n");
-        printf("2. Request Money\n");
-        printf("q. Back\n:");
+
         char option = tolower(getchar());
         if(option == 'q') {
             break;
@@ -227,24 +244,35 @@ void transferTransactionUI(struct account** accounts, int len_accounts, struct t
 
             printf("Enter sum: ");
             scanf("%d", &sum);
-
-            if(option == '1') {
-                strcpy(type,"EXPENSE");
+            if(beneficiary_id == session) {
+                printf("\033[1;31mBeneficiary ID can't be yourself!\033[1;0m\n");
+            }else if(option == '1') {
                 strcpy(description,"Transfer");
-                addTransfer(transactions,session, day, month, year, sum, type, description,len_transactions,accounts,len_accounts);
-                strcpy(type,"INCOME");
-                addTransfer(transactions,beneficiary_id, day, month, year, sum, type, description,len_transactions,accounts,len_accounts);
+                strcpy(type,"EXPENSE");
+
+                //verifica sa existe contul
+                if(get_loc_by_id(*accounts,len_accounts,beneficiary_id) != -1) {
+                    if(addTransfer(transactions,session, day, month, year, sum, type, description,len_transactions,accounts,len_accounts)) {
+                        strcpy(type,"INCOME");
+                        addTransfer(transactions,beneficiary_id, day, month, year, sum, type, description,len_transactions,accounts,len_accounts);
+                    }
+
+                }else {
+                    printf("\033[1;31mAccount doesn't Exist!\033[1;0m\n");
+                }
 
             }else if(option == '2') {
                 strcpy(type,"REQUEST");
                 strcpy(description,"Money Request");
                 // PRIMA DATA SE ADAUGA TRANZACTIA DE EXPENSE SI APOI CEA DE INCOME!!!!
-                addTransfer(transactions,beneficiary_id, day, month, year, sum, type, description,len_transactions,accounts,len_accounts);
-                strcpy(type,"PENDING");
-                addTransfer(transactions,session, day, month, year, sum, type, description,len_transactions,accounts,len_accounts);
+                if(addTransfer(transactions,beneficiary_id, day, month, year, sum, type, description,len_transactions,accounts,len_accounts)) {
+                    strcpy(type,"PENDING");
+                    addTransfer(transactions,session, day, month, year, sum, type, description,len_transactions,accounts,len_accounts);
+                }
+
 
             }
-
+            transferTransactionMenu();
         }
     }
 }
