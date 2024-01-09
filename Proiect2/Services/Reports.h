@@ -6,5 +6,5 @@
 #define PROIECT_REPORTS_H
 #include "../Repository/transaction.h"
 
-void financialReport(struct transaction * transactions, int dayL, int monthL,int yearL,int dayR,int monthR,int yearR);
+void financialReport(struct transaction * transactions,int len,int session, int dayL, int monthL,int yearL,int dayR,int monthR,int yearR);
 #endif //PROIECT_REPORTS_H

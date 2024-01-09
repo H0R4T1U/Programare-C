@@ -7,8 +7,9 @@
 #include "./transaction.h"
 #include "./accounts.h"
 #include "../Utility/encryption.h"
-void loadFile(char* filename, struct transaction * transactions);
-void saveFile(int len, struct transaction * transactions);
-void createCSV(struct account * a,int len);
-int loadCSV(struct account** a);
+int load_transaction_csv(struct transaction ** transactions);
+void save_transaction_csv(struct transaction * transactions,int len);
+void save_account_csv(struct account * a,int len);
+int load_account_csv(struct account** a);
+void export_data_csv(struct account* accounts, int len_accounts, struct transaction* transactions,int len_transactions,int session,char* file_ext);
 #endif //PROIECT_FILEREPOSITORY_H

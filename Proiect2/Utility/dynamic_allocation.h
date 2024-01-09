@@ -7,7 +7,7 @@
 #include "../Repository/transaction.h"
 #include "../Repository/accounts.h"
 struct transaction* allocateTransaction();
-struct transaction* reallocTransaction(struct transaction* t, int* n);
+int reallocTransaction(struct transaction** t, int n);
 struct account* allocateAccount();
 int  reallocAccount(struct account** a,int n);
 #endif //DYNAMIC_ALLOCATIO_H

@@ -6,7 +6,7 @@
 #include "crud.h"
 #include "../Views/transactionsView.h"
 
-void financialReport(struct transaction * transactions,int dayL,int monthL,int yearL,int dayR,int monthR,int yearR){
+void financialReport(struct transaction * transactions,int len,int session,int dayL,int monthL,int yearL,int dayR,int monthR,int yearR){
     /*
      * Prints all the transactions between two dates
      * Input: transactions - pointer to a list of transactions
@@ -17,10 +17,9 @@ void financialReport(struct transaction * transactions,int dayL,int monthL,int y
      *     monthR - the right month
      *     yearR - the right year
      */
-    int n = lengthTransactions(transactions);
     struct transaction  new_transactions[100];
     int j = 0;
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < len; i++){
 
         struct transaction t = transactions[i];
         int day = get_day(&t);
@@ -37,8 +36,6 @@ void financialReport(struct transaction * transactions,int dayL,int monthL,int y
         }
 
     }
-    printTransactions(new_transactions);
-    int sum = checkAccoundBalance(new_transactions);
-    printAccountBalance(sum);
+    printTransactions(new_transactions,j,session);
 
 }

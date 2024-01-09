@@ -5,6 +5,7 @@
 #ifndef PROIECT_TRANSACTIONSVIEW_H
 #define PROIECT_TRANSACTIONSVIEW_H
 #include "../Repository/transaction.h"
-void printTransactions(struct transaction* transactions);
-void printAccountBalance(int sum);
+#include "../Repository/accounts.h"
+void printTransactions(struct transaction* transactions,int len,int session);
+void printAccountBalance(struct account* accounts,int len_accounts,int session,int sum);
 #endif //PROIECT_TRANSACTIONSVIEW_H

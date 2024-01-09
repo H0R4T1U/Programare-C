@@ -9,7 +9,7 @@
 #include "testService.h"
 
 #include <assert.h>
-
+#include <stdlib.h>
 
 
 void testGetters() {
@@ -39,25 +39,19 @@ void testSetters() {
 
 
 void testAccountBallance(){
-    struct transaction transactions[2];
-    for(int i= 0 ; i < 2; i++){
-        struct transaction a = {0,25,0,0,0,"",""};
-        transactions[i] = a  ;
-    }
-    addTransaction(transactions,1,25,4,2023,450,"INCOME","descriere");
-    assert(checkAccoundBalance(transactions) == 450);
+    struct transaction* transactions = allocateTransaction();
+    int len = 1;
+    addTransaction(&transactions,1,25,4,2023,450,"INCOME","descriere",len);
+    assert(checkAccoundBalance(transactions,1,1) == 450);
+    free(transactions);
 }
 
 void testAddTransaction(){
-    struct transaction transactions[2];
-    for(int i= 0 ; i < 2; i++){
-        struct transaction a = {0,25,0,0,0,"",""};
-        transactions[i] = a  ;
-    }
-    assert(lengthTransactions(transactions) == 0);
-    addTransaction(transactions,1,25,4,2023,450,"INCOME","descriere");
-    assert(lengthTransactions(transactions) == 1);
+    struct transaction* transactions = allocateTransaction();
+    int len_transaction = 1;
+    addTransaction(&transactions,1,25,4,2023,450,"INCOME","descriere",len_transaction);
     assert(transactions[0].id == 1);
+    free(transactions);
 }
 void testAll(){
     testGetters();
